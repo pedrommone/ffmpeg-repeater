@@ -61,8 +61,8 @@ A high-performance video rendering service that connects to Supabase, processes 
    Create a `.env` file with your Supabase credentials:
    ```env
    # Supabase Configuration
-   SUPABASE_URL=https://htermunpfoqhsbpolnym.supabase.co
-   SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0ZXJtdW5wZm9xaHNicG9sbnltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5NDYyNjgsImV4cCI6MjA2NjUyMjI2OH0.uP3u0uYpDkTzPUIF8k8peeLRL3fl746oCZsMEVbnOK8
+   SUPABASE_URL=
+   SUPABASE_ANON_KEY=
    
    # Optional Configuration
    JOB_CHECK_INTERVAL=5000

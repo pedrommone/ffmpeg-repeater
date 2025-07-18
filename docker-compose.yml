@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  ffmpeg-repeater:
+    build: .
+    container_name: ffmpeg-repeater
+    restart: unless-stopped
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+      - COMPRESSION_PRESET=youtube-1080p
+      
+      # Supabase configuration (set these in .env file)
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      
+      # Backblaze B2 configuration (set these in .env file)
+      - B2_ENDPOINT=${B2_ENDPOINT}
+      - B2_REGION=${B2_REGION}
+      - B2_ACCESS_KEY_ID=${B2_ACCESS_KEY_ID}
+      - B2_SECRET_ACCESS_KEY=${B2_SECRET_ACCESS_KEY}
+      - B2_BUCKET=${B2_BUCKET}
+      
+      # Optional FFmpeg paths
+      - FFMPEG_PATH=${FFMPEG_PATH:-}
+      - FFPROBE_PATH=${FFPROBE_PATH:-}
+    
+    # Volume mounts for persistent data
+    volumes:
+      - ./temp:/app/temp
+      - ./output:/app/output
+      - ./logs:/app/logs
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Optional: for development with hot reload
+  ffmpeg-repeater-dev:
+    build: .
+    container_name: ffmpeg-repeater-dev
+    restart: unless-stopped
+    profiles:
+      - dev
+    
+    environment:
+      - NODE_ENV=development
+      - LOG_LEVEL=debug
+      - COMPRESSION_PRESET=youtube-720p  # Faster for development
+      
+    volumes:
+      - .:/app
+      - /app/node_modules  # Anonymous volume for node_modules
+      - ./temp:/app/temp
+      - ./output:/app/output
+    
+    command: ["npm", "run", "dev"] 

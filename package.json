@@ -1,0 +1,31 @@
+{
+  "name": "long-video-render",
+  "version": "1.0.0",
+  "description": "High-performance video rendering service with Supabase integration",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "add-test-job": "node scripts/add-test-job.js",
+    "test-compression": "node scripts/test-compression.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["video", "rendering", "supabase", "ffmpeg", "4k"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.5",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs-extra": "^11.2.0",
+    "path": "^0.12.7",
+    "uuid": "^9.0.1",
+    "@aws-sdk/client-s3": "^3.490.0",
+    "@aws-sdk/lib-storage": "^3.490.0"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.24"
+  }
+} 
